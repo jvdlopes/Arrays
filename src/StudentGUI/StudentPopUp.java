@@ -5,12 +5,18 @@
  */
 package StudentGUI;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author john5790
  */
 public class StudentPopUp extends javax.swing.JDialog {
-
+    Student temp;
+    
+    public Student getStudent(){
+        return temp;
+    }
     /**
      * Creates new form StudentPopUp
      */
@@ -32,7 +38,7 @@ public class StudentPopUp extends javax.swing.JDialog {
         txtName = new javax.swing.JTextField();
         btnOk = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblmarks = new javax.swing.JTable();
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -47,7 +53,7 @@ public class StudentPopUp extends javax.swing.JDialog {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblmarks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null}
             },
@@ -55,8 +61,8 @@ public class StudentPopUp extends javax.swing.JDialog {
                 "Mark 1", "Mark 2", "Mark 3"
             }
         ));
-        jTable1.setRowSelectionAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        tblmarks.setRowSelectionAllowed(false);
+        jScrollPane1.setViewportView(tblmarks);
 
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -105,6 +111,17 @@ public class StudentPopUp extends javax.swing.JDialog {
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         // TODO add your handling code here:
+        int marks[] = new int[3];
+        String name = txtName.getText();
+        try{
+            marks[0] = Integer.parseInt(tblmarks.getValueAt(0,0).toString());
+            marks[1] = Integer.parseInt(tblmarks.getValueAt(0,1).toString());
+            marks[2] = Integer.parseInt(tblmarks.getValueAt(0,2).toString());
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Fill out all fields\n(press <enter> on each mark)");
+            return;
+        }
+        temp = new Student(name, marks);
         this.dispose();//closes the dialog
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -160,7 +177,7 @@ public class StudentPopUp extends javax.swing.JDialog {
     private javax.swing.JButton btnOk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblmarks;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

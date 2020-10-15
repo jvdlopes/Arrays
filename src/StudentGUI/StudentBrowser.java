@@ -5,6 +5,8 @@
  */
 package StudentGUI;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author john5790
@@ -72,8 +74,8 @@ public class StudentBrowser extends javax.swing.JFrame {
         txt3 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnprev = new javax.swing.JButton();
+        btnnext = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -133,9 +135,19 @@ public class StudentBrowser extends javax.swing.JFrame {
 
         jButton1.setText("<<");
 
-        jButton2.setText("<");
+        btnprev.setText("<");
+        btnprev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnprevActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText(">");
+        btnnext.setText(">");
+        btnnext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnnextActionPerformed(evt);
+            }
+        });
 
         jButton4.setText(">>");
 
@@ -205,9 +217,9 @@ public class StudentBrowser extends javax.swing.JFrame {
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(btnprev)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                                .addComponent(jButton3)
+                                .addComponent(btnnext)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton4)
                                 .addGap(48, 48, 48))))))
@@ -234,14 +246,14 @@ public class StudentBrowser extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
+                    .addComponent(btnprev)
+                    .addComponent(btnnext)
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,6 +280,19 @@ public class StudentBrowser extends javax.swing.JFrame {
         //true = modal is true = pop up takes control of the app
         sp.setLocationRelativeTo(this); //pops up over the frame
         sp.setVisible(true); //show the popup
+        
+        Student temp = sp.getStudent();
+        
+        String em = temp.validateData(); //make sure its ok
+        
+        if (em==null){//add it to list
+            s[size]=temp;
+            currentstudents=size;
+            size++;
+            showStudent();
+        } 
+        else//do not and show error
+            JOptionPane.showMessageDialog(this, em);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt1ActionPerformed
@@ -281,6 +306,22 @@ public class StudentBrowser extends javax.swing.JFrame {
     private void txt3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt3ActionPerformed
+
+    private void btnnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnextActionPerformed
+        // TODO add your handling code here:
+        if (currentstudents<size-1 && currentstudents>-1){
+            currentstudents++;
+            showStudent();
+        }
+    }//GEN-LAST:event_btnnextActionPerformed
+
+    private void btnprevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprevActionPerformed
+        // TODO add your handling code here:
+        if (currentstudents > 0){
+            currentstudents--;
+            showStudent();
+        }
+    }//GEN-LAST:event_btnprevActionPerformed
 
     /**
      * @param args the command line arguments
@@ -320,9 +361,9 @@ public class StudentBrowser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnMod;
+    private javax.swing.JButton btnnext;
+    private javax.swing.JButton btnprev;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
