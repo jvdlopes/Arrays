@@ -349,7 +349,7 @@ public class StudentBrowser extends javax.swing.JFrame {
         String em = temp.validateData();
         
         if (em==null){
-            s[currentstudents]
+            s[currentstudents] = temp;
             showStudent();
         }
         else
